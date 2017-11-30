@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Viramate fix
 // @namespace    https://github.com/Yoctillion
-// @version      1.1
+// @version      1.2
 // @description  fix Viramate for DMM version
 // @author       Yoctillion
 // @match        http://game.granbluefantasy.jp
@@ -11,6 +11,23 @@
 
 (function() {
     'use strict';
+
+    let platformList = [ "isGree", "isDMM", "isYahoo" ];
+
+    let html = document.documentElement.outerHTML;
+    let needAppend = false;
+    for (let platform of platformList) {
+        let pattern = new RegExp(`${platform}:\\s*function\\(\\)\\{\\s*return true;\\s*\\}`);
+        if (pattern.test(html))
+        {
+            needAppend = true;
+            break;
+        }
+    }
+
+    if (!needAppend) {
+        return;
+    }
 
     let prevNode;
     for (let node of document.head.children) {
