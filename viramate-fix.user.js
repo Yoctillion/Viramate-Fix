@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Viramate fix
 // @namespace    https://github.com/Yoctillion
-// @version      1.2
+// @version      1.3
 // @description  fix Viramate for DMM version
 // @author       Yoctillion
 // @match        http://game.granbluefantasy.jp
@@ -55,4 +55,9 @@
 
     let css = 'div[data-menubar-container=MenuBarContainer] > nav > * { display: none; }';
     appendCss(css);
+
+    // fix the position of popups
+    window.Game.ua.hasPcgamecontainerIrregularParent = function () {
+        return true;
+    };
 })();
